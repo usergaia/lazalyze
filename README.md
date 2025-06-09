@@ -1,2 +1,2 @@
-# shoppease
-shoppee review summarizer + sentimental analysis
+# lazalyze
+lazada review summarizer + sentimental analysis
