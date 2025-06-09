@@ -1,10 +1,11 @@
 {% extends "base.html" %}
-{% block title %}Home | ShopEase{% endblock %}
+{% block title %}Home | Lazalyze{% endblock %}
 {% block content %}
-<div class="home-container">
+<div class="inpField-container">
     <h2>Welcome!</h2>
-    <input type="text" id="userInput" placeholder="Enter something..." />
-    <button id="showBtn">Enter</button>
-    <p id="displayText"></p>
+    <form action="/scrape" method="post">
+        <input type="text" id="userInput" name="product_url" placeholder="Enter lazada product link...." required />
+        <button id="enterBtn" type="submit">Enter</button>
+    </form>
 </div>
 {% endblock %}
