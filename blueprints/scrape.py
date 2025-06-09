@@ -8,14 +8,27 @@ from selenium.webdriver.chrome.service import Service
 import time
 import base64
 
-def scrape_site(url):
+def scrape_img(url):
     chromedriver_path = r"D:\GenFolder\Downloads\chromedriver-win64\chromedriver-win64\chromedriver.exe"
     chrome_options = Options()
-    #chrome_options.add_argument('--headless') # comment to simulate webscraping
+    headless = True
+    # Function to set headless mode
+    def set_headless(opt, value=True):
+        if value:
+            opt.add_argument('--headless')
+        else:
+            # Remove headless if present
+            try:
+                opt.arguments.remove('--headless')
+            except ValueError:
+                pass
+    set_headless(chrome_options, True)
     chrome_options.add_argument('--disable-gpu')
     chrome_options.add_argument('--no-sandbox')
     chrome_options.add_argument('--window-size=1920,1080')
     chrome_options.add_argument('--disable-dev-shm-usage')
+    chrome_options.add_argument('--enable-unsafe-webgpu')
+    chrome_options.add_argument('--enable-unsafe-swiftshader')
     
     
     # Set a common user-agent to mimic a real browser
@@ -96,3 +109,15 @@ def scrape_site(url):
         return f"WebDriver error: {str(e)}"
     except Exception as e:
         return f"Error: An unexpected error occurred. Reason: {str(e)}"
+    
+def scrape_rev(url):
+    # Placeholder for review scraping logic
+    # This function should implement the logic to scrape reviews from the given URL
+    # For now, it returns a dummy value
+    
+    reviews = []
+    
+    for i in range(1, 6):
+        reviews.append(f'Review {i}')
+
+    return reviews
