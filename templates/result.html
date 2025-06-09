@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Home | Lazalyze{% endblock %}
+{% block content %}
+<a href={{ product_url }} target="_blank" class="product-link">
+<div class="result-container result-flex">
+    {% if product_detail_b64 or gallery_b64 %}
+        <div class="result-img-row">
+            {% if gallery_b64 and product_detail_b64 %}
+                <div class="result-img-combo">
+                    <img src="data:image/png;base64,{{ gallery_b64 }}" alt="Gallery Screenshot" class="result-img gallery-img"/>
+                    <img src="data:image/png;base64,{{ product_detail_b64 }}" alt="Product Detail Screenshot" class="result-img detail-img"/>
+                </div>
+            {% elif gallery_b64 %}
+                <img src="data:image/png;base64,{{ gallery_b64 }}" alt="Gallery Screenshot" class="result-img"/>
+            {% elif product_detail_b64 %}
+                <img src="data:image/png;base64,{{ product_detail_b64 }}" alt="Product Detail Screenshot" class="result-img"/>
+            {% endif %}
+        </div>
+    {% elif screenshot_b64 %}
+        <img src="data:image/png;base64,{{ screenshot_b64 }}" alt="Main Info Screenshot" class="result-img" />
+    {% elif scraped_html %}
+        {{ scraped_html|safe }}
+    {% else %}
+        <pre>{{ scraped_text }}</pre>
+    {% endif %}
+</div>
+</a>
+{% endblock %}
