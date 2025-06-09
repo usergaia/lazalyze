@@ -1,28 +1,48 @@
 {% extends "base.html" %}
 {% block title %}Home | Lazalyze{% endblock %}
 {% block content %}
-<a href={{ product_url }} target="_blank" class="product-link">
-<div class="result-container result-flex">
-    {% if product_detail_b64 or gallery_b64 %}
-        <div class="result-img-row">
-            {% if gallery_b64 and product_detail_b64 %}
-                <div class="result-img-combo">
-                    <img src="data:image/png;base64,{{ gallery_b64 }}" alt="Gallery Screenshot" class="result-img gallery-img"/>
-                    <img src="data:image/png;base64,{{ product_detail_b64 }}" alt="Product Detail Screenshot" class="result-img detail-img"/>
-                </div>
-            {% elif gallery_b64 %}
-                <img src="data:image/png;base64,{{ gallery_b64 }}" alt="Gallery Screenshot" class="result-img"/>
-            {% elif product_detail_b64 %}
-                <img src="data:image/png;base64,{{ product_detail_b64 }}" alt="Product Detail Screenshot" class="result-img"/>
-            {% endif %}
+<!-- Product Images Container -->
+<div class="result-container product-images">
+    <a href={{ product_url }} target="_blank" class="product-link">
+        {% if product_detail_b64 or gallery_b64 %}
+            <div class="result-img-row">
+                {% if gallery_b64 and product_detail_b64 %}
+                    <div class="result-img-combo">
+                        <img src="data:image/png;base64,{{ gallery_b64 }}" alt="Gallery Screenshot" class="result-img gallery-img"/>
+                        <img src="data:image/png;base64,{{ product_detail_b64 }}" alt="Product Detail Screenshot" class="result-img detail-img"/>
+                    </div>
+                {% elif gallery_b64 %}
+                    <img src="data:image/png;base64,{{ gallery_b64 }}" alt="Gallery Screenshot" class="result-img"/>
+                {% elif product_detail_b64 %}
+                    <img src="data:image/png;base64,{{ product_detail_b64 }}" alt="Product Detail Screenshot" class="result-img"/>
+                {% endif %}
+            </div>
+        {% else %}
+            <pre>{{ error_msg }}</pre>
+        {% endif %}
+    </a>
+</div>
+
+
+<!-- Reviews Container -->
+<div class="review-container">
+    <div class="diagram">
+        <h2>Sentimental Diagram</h2>
+        <p>Diagram will be placed here</p>
+    </div>    
+    <h2 class="review-heading">Customer Reviews</h2>   
+    {% if scraped_rev %}
+        {% for review in scraped_rev %}
+        <div class="review-content-container">
+            <div class="review-text">
+                <p>{{ review }}</p>
+            </div>
         </div>
-    {% elif screenshot_b64 %}
-        <img src="data:image/png;base64,{{ screenshot_b64 }}" alt="Main Info Screenshot" class="result-img" />
-    {% elif scraped_html %}
-        {{ scraped_html|safe }}
+        {% endfor %}
     {% else %}
-        <pre>{{ scraped_text }}</pre>
+        <div class="review-content-container">
+            <p>No reviews available for this product.</p>
+        </div>
     {% endif %}
 </div>
-</a>
 {% endblock %}
